@@ -1,0 +1,10 @@
+{
+    "projectId": "dpam1k",
+    "viewportHeight": 768,
+    "viewportWidth" : 1366,
+    "defaultCommandTimeout": 10000,
+    "pageLoadTimeout": 35000,
+    "baseUrl": "http://localhost:8080/",
+    "authUrl": "https://localhost:7234/usuario/",
+    "apiUrl": "https://localhost:7072/partner/"
+}

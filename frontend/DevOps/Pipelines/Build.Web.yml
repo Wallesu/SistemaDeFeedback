@@ -1,0 +1,11 @@
+resources:
+  repositories:
+  - repository: templates
+    type: git
+    name: Infraestrutura\Templates-Pipelines
+    ref:  refs/heads/v1
+
+extends:
+  template: web-backoffice-template.yml@templates
+  parameters:    
+    projectPath: 	    "$(projectPath)"

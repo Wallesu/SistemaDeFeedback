@@ -1,44 +1,87 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "sistema-feedback",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
+    "start": "npm run serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "format": "prettier .  --write",
+    "lint:fix": "eslint --fix --ext .vue,.js,.jsx .",
+    "test:unit": "vue-cli-service test:unit",
+    "test": "npx cypress open"
   },
   "dependencies": {
     "@bmp-vue/core": "^4.0.1",
-    "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "date-fns": "^2.15.0",
+    "crypto-browserify": "^3.12.0",
+    "vue": "^2.6.14"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@bmp/create-bmp-core": "^1.0.2",
+    "@commitlint/cli": "^17.4.1",
+    "@commitlint/config-conventional": "^17.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "axios": "^0.19.0",
+    "cypress": "^7.7.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-cypress": "^2.14.0",
+    "eslint-plugin-vue": "^9.8.0",
+    "lint-staged": "^13.1.0",
+    "prettier": "2.8.2"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   },
   "browserslist": [
-    "> 1%",
+    ">= 1%",
     "last 2 versions",
     "not dead",
-    "not ie 11"
-  ]
+    "Chrome >= 45",
+    "Firefox >= 38",
+    "Edge >= 12",
+    "Explorer >= 10",
+    "iOS >= 9",
+    "Safari >= 9",
+    "Android >= 4.4",
+    "Opera >= 30"
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.vue$": "vue-jest",
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "snapshotSerializers": [
+      "jest-serializer-vue"
+    ],
+    "testMatch": [
+      "**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
+    ],
+    "testURL": "http://localhost/"
+  }
 }
