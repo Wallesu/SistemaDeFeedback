@@ -6,10 +6,12 @@ Vue.config.productionTip = false
 
 const paths = require('@/plugins/router/paths').default;
 const theme = require('@/plugins/vuetify/theme').default;
+var controllers = require.context('@/controllers', true, /\.js$/);
 
 Vue.use(core, {
   paths,
   theme,
+  controllers,
   defaultViews: false,
   carregaEnums: false,
   mount: options => {
