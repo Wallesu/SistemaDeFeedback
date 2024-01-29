@@ -15,16 +15,21 @@
       @filtros="filtrarPesquisa"
       size="lg"
     /> 
-
+    <EmployeeRegistrationsEdit 
+      ref="editar" 
+      @refresh="refresh"
+    />
   </div>
 </template>
 
 <script>
 import EmployeeRegistrationsFilter from  './EmployeeRegistrationsFilter.vue'
+import EmployeeRegistrationsEdit from './EmployeeRegistrationsEdit.vue'
 export default{
 
   components: {
-    EmployeeRegistrationsFilter
+    EmployeeRegistrationsFilter,
+    EmployeeRegistrationsEdit
   },
 
   data: () => ({
