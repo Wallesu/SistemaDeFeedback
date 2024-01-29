@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <component :is="layout" />
+    <component :is="layout"/>
 
     <notifications
       group="notifications-bottom-right"
@@ -25,22 +25,18 @@ export default {
   metaInfo: {
     title: 'Sistema de Feedbacks'
   },
-
   name: 'App',
-
   components: {
     AppLayout,
     IndexLayout
   },
 
   computed: {
-
     loading() {
       return (
         this.$store.getters.loading || this.$store.getters.activeRequests > 0
       );
     },
-
     layout() {
       if (!this.$route.meta.anonymousAuth && ['/'].indexOf(this.$route.path) < 0) {
           this.$store.commit('SET_LAYOUT', AppLayout);
@@ -50,7 +46,18 @@ export default {
       }
       return this.$store.getters.layout;
     }
+  },
 
+  mounted() {
+    var vm = this;
+    vm.$store.commit('isMobile');
+    if (!vm.$store.getters.isMobile && !vm.$store.getters.drawer) {
+      vm.$store.commit('drawer');
+    }
+    window.addEventListener('resize', function () {
+      vm.$store.commit('isMobile');
+    });
   }
+
 }
 </script>

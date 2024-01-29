@@ -35,7 +35,7 @@ export default {
     },
     grid: {
       rows: 10,
-      pageSize: [5, 10, 15]
+      pageSize: [10, 20, 30, 40]
     }
   },
   themes: {

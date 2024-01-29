@@ -26,10 +26,10 @@ export default [
         }
     },
     {
-        path: '/cadastros',
+        path: '/registrations',
         title: 'Cadastros',
-        dir: 'views/Cadastros/',
-        icon: 'fa-solid fa-folder',
+        dir: 'views/Registrations/',
+        icon: 'fas fa-users',
         menu: true,
         meta: {
             roles: ['Safe.BackOffice.User'],
@@ -37,11 +37,11 @@ export default [
         },
         items: [
             {
-                path: '/cadastros-de-funcionarios',
+                path: '/employee-registrations',
                 title: 'Cadastros de Funcionários',
                 icon: '',
                 dir: '',
-                view: 'CadastrosDeFuncionarios',
+                view: 'EmployeeRegistrations',
                 menu: true,
                 meta: {
                     roles: ['Safe.BackOffice.User'],
