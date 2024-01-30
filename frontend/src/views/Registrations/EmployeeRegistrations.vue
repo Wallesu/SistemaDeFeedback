@@ -1,88 +1,77 @@
 <template>
-  <div class="mt-5"> 
-    <core-grid 
-      ref="grid" 
-      :onRead="onRead" 
-      :schema="schema" 
-      :addOption="true" 
-      :editOption="false" 
-      :deleteOption="false" 
+  <div class="mt-5">
+    <core-grid
+      ref="grid"
+      :onRead="onRead"
+      :schema="schema"
+      :addOption="true"
+      :editOption="true"
+      :deleteOption="true"
       filterOption
-    /> 
+    />
     <EmployeeRegistrationsFilter
       ref="filtrar"
       @refresh="refresh()"
       @filtros="filtrarPesquisa"
       size="lg"
-    /> 
+    />
     <EmployeeRegistrationsEdit 
       ref="editar" 
-      @refresh="refresh"
+      @refresh="refresh" 
     />
   </div>
 </template>
 
 <script>
-import EmployeeRegistrationsFilter from  './EmployeeRegistrationsFilter.vue'
-import EmployeeRegistrationsEdit from './EmployeeRegistrationsEdit.vue'
-export default{
-
+import EmployeeRegistrationsFilter from "./EmployeeRegistrationsFilter.vue";
+import EmployeeRegistrationsEdit from "./EmployeeRegistrationsEdit.vue";
+export default {
   components: {
     EmployeeRegistrationsFilter,
-    EmployeeRegistrationsEdit
+    EmployeeRegistrationsEdit,
   },
 
   data: () => ({
-    setor:[
-      "Comercial",
-      "Desenvolvimento - BackOffice",
-      "Desenvolvimento - DBS",
-      "Desenvolvimento - DevOps",
-      "Desenvolvimento - Safe",
-      "Financeiro",
-      "Recursos Humanos"
-    ],
-    cargo:[
+    cargo: [
       "Analista",
-      "Desenvolvedor(a) Júnior",
-      "Desenvolvedor(a) Pleno",
-      "Desenvolvedor(a) Sênior",
-      "Especialista",
-      "Gerente",
       "Coordenador(a)",
-      "Squad Leader"
+      "Desenvolvedor(a)",
+      "Gerente de projetos",
+      "QA/Tester",
+      "Tech Lead",
     ],
-    schema:[
-      { text:"Nome", value:"nome" },
-      { text:"Data de nascimento", value:"dtNascimento" },
-      { text:"Cargo", value:"cargo" },
-      { text:"Setor", value:"setor" },
-      { text:"Data de admissão", value:"dtAdmissao" }
+    nivel: ["", "I", "II", "III"],
+    schema: [
+      { text: "Nome", value: "nome" },
+      { text: "Data de nascimento", value: "dtNascimento" },
+      { text: "Cargo", value: "cargo" },
+      { text: "Nível", value: "nivel" },
+      { text: "Data de admissão", value: "dtAdmissao" },
     ],
     model: {
+      id: "",
       nome: "",
       dtNascimento: "",
       cargo: "",
-      setor: "",
-      dataInicio: "",
-      dataFim: ""
-    }
+      nivel: "",
+      dtInicio: "",
+      dtFim: "",
+    },
   }),
 
   methods: {
-
     onRead(options, search) {
       const th = this;
       let dto = {
         ...options,
-        search
+        search,
       };
-      th.$api.employeeregistrations.GetAll(dto).then(response => {
+      th.$api.employeeregistrations.GetAll(dto).then((response) => {
         if (!response.data?.hasError) {
-          let newData = response.data.map(item => {
+          let newData = response.data.map((item) => {
             return {
               ...item,
-              dtAdmissao: new Date(item.dtAdmissao).toLocaleDateString('pt-BR'),
+              dtAdmissao: new Date(item.dtAdmissao).toLocaleDateString("pt-BR"),
             };
           });
           options.success(newData, response.count);
@@ -92,23 +81,24 @@ export default{
 
     filtrarPesquisa(model) {
       const th = this;
-      let novaDataFim = null;
-      let novaDataInicio = null;
+      let novaDtFim = null;
+      let novaDtInicio = null;
 
-      novaDataFim = model.dataFim
-        ? new Date(model.dataFim + ' 21:00:00.000').toUTCString()
+      novaDtFim = model.dtFim
+        ? new Date(model.dtFim + " 21:00:00.000").toUTCString()
         : null;
-      novaDataInicio = model.dataInicio
-        ? new Date(model.dataInicio).toUTCString()
+      novaDtInicio = model.dtInicio
+        ? new Date(model.dtInicio).toUTCString()
         : null;
 
       let dto = {
-        Nome: model.nome ?? null,
-        DtNascimento: model.dtNascimento ?? null,
-        Cargo: model.cargo ?? null,
-        Setor: model.setor ?? null,
-        DtInicio: novaDataInicio,
-        DtFim: novaDataFim
+        Id: model.id,
+        Nome: model.nome,
+        DtNascimento: model.dtNascimento,
+        Cargo: model.cargo,
+        Nivel: model.nivel,
+        DtInicio: novaDtInicio,
+        DtFim: novaDtFim,
       };
 
       let filtro = Object.assign(dto, th.$refs.grid.options);
@@ -116,13 +106,9 @@ export default{
     },
 
     refresh() {
-      this.$refs.grid.refresh()
+      this.$refs.grid.refresh();
     },
-
-
-  }
-
-}
-
+  },
+};
 </script>
 

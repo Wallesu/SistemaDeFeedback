@@ -7,7 +7,7 @@
       <input-select label="Cargo" :options="cargo" v-model="model.cargo" />
     </v-col>
     <v-col sm="12" class="pb-2">
-      <input-select label="Setor" :options="setor" v-model="model.setor" />
+      <input-select label="Nível" :options="nivel" v-model="model.nivel" />
     </v-col>
     <h4 class="ml-4 mt-1 mb-2">Data de admissão</h4>
     <v-row class="mx-auto">
@@ -36,25 +36,15 @@ export default {
   data() {
     return {
       model: {},
-      setor:[
-      "Comercial",
-      "Desenvolvimento - BackOffice",
-      "Desenvolvimento - DBS",
-      "Desenvolvimento - DevOps",
-      "Desenvolvimento - Safe",
-      "Financeiro",
-      "Recursos Humanos"
-      ],
-      cargo:[
+      cargo: [
         "Analista",
-        "Desenvolvedor(a) Júnior",
-        "Desenvolvedor(a) Pleno",
-        "Desenvolvedor(a) Sênior",
-        "Especialista",
-        "Gerente",
         "Coordenador(a)",
-        "Squad Leader"
+        "Desenvolvedor(a)",
+        "Gerente de projetos",
+        "QA/Tester",
+        "Tech Lead",
       ],
+      nivel: ["", "I", "II", "III"],
     };
   },
   methods: {
